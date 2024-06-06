@@ -1,0 +1,15 @@
+Status	./SRR517963.bam	./SRR517964.bam
+Assigned	2070311	391473
+Unassigned_Unmapped	12809503	2210521
+Unassigned_Read_Type	0	0
+Unassigned_Singleton	0	0
+Unassigned_MappingQuality	0	0
+Unassigned_Chimera	0	0
+Unassigned_FragmentLength	0	0
+Unassigned_Duplicate	0	0
+Unassigned_MultiMapping	0	0
+Unassigned_Secondary	0	0
+Unassigned_NonSplit	0	0
+Unassigned_NoFeatures	14496485	21752517
+Unassigned_Overlapping_Length	0	0
+Unassigned_Ambiguity	128845	20410
