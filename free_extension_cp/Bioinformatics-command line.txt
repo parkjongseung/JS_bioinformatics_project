@@ -1,0 +1,35 @@
+Bioinformatics command line
+Data : https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE39051
+paper title : Integrative genome-wide analysis reveals HLP1, a novel RNA-binding protein, regulates plant flowering by targeting alternative polyadenylation
+
+1. https://plants.ensembl.org/info/data/ftp/index.html - reference genome (chromosome 1~5) & GTF (gene annotation file)
+2. wget --no-check-certificate -O ./AT_gencode.gtf.gz https://ftp.ebi.ac.uk/ensemblgenomes/pub/release-59/plants/gtf/arabidopsis_thaliana/Arabidopsis_thaliana.TAIR10.59.gtf.gz
+3. wget --no-check-certificate -O chromosome1.fa.gz https://ftp.ebi.ac.uk/ensemblgenomes/pub/release-59/plants/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.chromosome.1.fa.gz
+wget --no-check-certificate -O chromosome2.fa.gz https://ftp.ebi.ac.uk/ensemblgenomes/pub/release-59/plants/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.chromosome.2.fa.gz
+wget --no-check-certificate -O chromosome3.fa.gz https://ftp.ebi.ac.uk/ensemblgenomes/pub/release-59/plants/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.chromosome.3.fa.gz
+wget --no-check-certificate -O chromosome4.fa.gz https://ftp.ebi.ac.uk/ensemblgenomes/pub/release-59/plants/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.chromosome.4.fa.gz
+wget --no-check-certificate -O chromozome5.fa.gz https://ftp.ebi.ac.uk/ensemblgenomes/pub/release-59/plants/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.chromosome.5.fa.gz
+
+4. gzip -d chromosome*.fa.gz
+5. conda install bwa
+6. bwa index -a is chromosome1.fa, bwa index -a is chromosome2.fa, bwa index -a is chromosome3.fa, bwa index -a is chromosome4.fa, bwa index -a is chromosome5.fa
+
+7. bwa mem reference/chromosome1.fa ./SRR517963.fastq > chromosome1_aln.sam
+bwa mem reference/chromosome2.fa SRR517963.fastq > chromosome2_aln.sam
+bwa mem reference/chromosome3.fa SRR517963.fastq > chromosome3_aln.sam
+bwa mem reference/chromosome4.fa SRR517963.fastq > chromosome4_aln.sam
+bwa mem reference/chromosome5.fa SRR517963.fastq > chromosome5_aln.sam
+
+8. samtools view -b -o chromosome1_aln.bam chromosome1_aln.sam
+samtools view -b -o chromosome2_aln.bam chromosome2_aln.sam
+samtools view -b -o chromosome3_aln.bam chromosome3_aln.sam
+samtools view -b -o chromosome4_aln.bam chromosome4_aln.sam
+samtools view -b -o chromosome5_aln.bam chromosome5_aln.sam
+
+9. samtools sort -o chromosome1_aln_sorted.bam chromosome1_aln.bam
+samtools sort -o chromosome2_aln_sorted.bam chromosome2_aln.bam
+samtools sort -o chromosome3_aln_sorted.bam chromosome3_aln.bam
+samtools sort -o chromosome4_aln_sorted.bam chromosome4_aln.bam
+samtools sort -o chromosome5_aln_sorted.bam chromosome5_aln.bam
+
+10. featureCounts -a AT_gencode.gtf -o read-counts.txt alignment/chromosome*_sorted.bam
