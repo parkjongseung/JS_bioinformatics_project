@@ -1,0 +1,16 @@
+1 mkdir galaxy
+2 cd galaxy
+3 explorer.exe .
+4 rm *Zone.Identifier
+5 conda activate
+6 featureCounts -a ../AT_gencode.gtf -o read-counts.txt ./*bam
+7 cat read-counts.txt |head
+8 git push config --global user.email 'as0567@snu.ac.kr'
+git config --global user.email 'as0567@snu.ac.kr'
+git config --global user.name 'parkjongseung'
+git remote add master git@github.com:parkjongseung/JS_bioinformatics_project.git
+9 conda install -y bedtools bioawk
+10 grep ' start_codon .* + .*transcript_support_level "1"' ../AT_gencode.gtf | \sed -e 's/ [^ ]*transcript_id "\([^"]*\)".*$/ \1/g' > gencode-start.gtf
+11 cat gencode-start.gtf |head
+12 rm genocode-start.gtf
+13 rm gencode-start.gtf
